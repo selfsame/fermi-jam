@@ -1,0 +1,367 @@
+fileFormatVersion: 2
+guid: 5803038aa148a48a7aa8f2be2b9cbcb8
+timeCreated: 1472900186
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: galaxy-sheet_0
+    21300002: galaxy-sheet_1
+    21300004: galaxy-sheet_2
+    21300006: galaxy-sheet_3
+    21300008: galaxy-sheet_4
+    21300010: galaxy-sheet_5
+    21300012: galaxy-sheet_6
+    21300014: galaxy-sheet_7
+    21300016: galaxy-sheet_8
+    21300018: galaxy-sheet_9
+    21300020: galaxy-sheet_10
+    21300022: galaxy-sheet_11
+    21300024: galaxy-sheet_12
+    21300026: galaxy-sheet_13
+    21300028: galaxy-sheet_14
+    21300030: galaxy-sheet_15
+    21300032: galaxy-sheet_16
+    21300034: galaxy-sheet_17
+    21300036: galaxy-sheet_18
+    21300038: galaxy-sheet_19
+    21300040: galaxy-sheet_20
+    21300042: galaxy-sheet_21
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 89, y: 293, z: 362, w: 40}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: galaxy-sheet_0
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 320
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 319
+        width: 45
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_2
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 289
+        width: 37
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_3
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 255
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_4
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 226
+        width: 37
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_5
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 195
+        width: 38
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_6
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 218
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_7
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 284
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_8
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 79
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_9
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 289
+        width: 34
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_10
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 184
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_11
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 224
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_12
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 221
+        width: 34
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_13
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 39
+        width: 33
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_14
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 109
+        width: 44
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_15
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 327
+        width: 23
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_16
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 321
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_17
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_18
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 218
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_19
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 182
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_20
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 119
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: galaxy-sheet_21
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 116
+        width: 29
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

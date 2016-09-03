@@ -1,1 +1,2 @@
-{distance  universe.spatial/read-distance}
+{unit  universe.domain/read-unit
+ ratio  universe.domain/read-ratio}
