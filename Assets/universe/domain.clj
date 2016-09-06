@@ -180,14 +180,6 @@
   (UnitRatio. a b))
 
 
-
-
-
-
-
-
-
-
 ;unit value
 (unit 1 :km)
 

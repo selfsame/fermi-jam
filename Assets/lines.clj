@@ -28,10 +28,12 @@
 (defn line
   (^GameObject [^Vector3 start, ^Vector3 end]
      (line start, end, 0.2))
-  (^GameObject[^Vector3 start, ^Vector3 end, ^Double width]
+  (^GameObject [^Vector3 start, ^Vector3 end, ^Double width]
      (let [obj (GameObject. "line")
            ^LineRenderer lnr (.AddComponent obj
                                (type-args UnityEngine.LineRenderer))]
        (set-line-renderer-verts lnr, [start, end])
        (.SetWidth lnr width, width)
        obj)))
+
+

@@ -1,4 +1,4 @@
-Shader "example" {
+Shader "billboard" {
 	Properties {
 		_MainTex ("_MainTex", 2D) = "white" {
 			
@@ -12,12 +12,10 @@ Shader "example" {
 			
 			#ifdef VERTEX
 			
-			varying vec4 vPos;
 			varying vec4 vTextCoords;
 			void main(void){
-				(vPos = gl_Vertex);
-				(gl_Position = (gl_ModelViewProjectionMatrix * gl_Vertex));
-				(vTextCoords = gl_MultiTexCoord0);
+				(gl_Position = (gl_ModelViewProjectionMatrix * (gl_Vertex * vec4(1.0,1.0,1.0,1.0))));
+				(vTextCoords = (gl_Vertex * 0.5));
 				
 			}
 			
@@ -28,11 +26,9 @@ Shader "example" {
 			
 			varying vec4 vTextCoords;
 			uniform sampler2D _MainTex;
-			varying vec4 vPos;
 			uniform vec4 _Color;
 			void main(void){
-				float4 _CosTime;
-				(gl_FragColor = ((vPos * (texture2D(_MainTex,vec2(vTextCoords)) + (vec4(_CosTime) * 10.0))) + ((vPos * vec4(_Color[1.0],_Color[2.0],_Color[0.0],1.0)) * _Color)));
+				(gl_FragColor = (_Color * texture2D(_MainTex,vec2(vTextCoords))));
 				
 			}
 			

@@ -46,7 +46,8 @@
      [:span
       (if-let [s (:storage v)] (str (name s) " ") "")
       (if-let [p (:precision v)] (str (name p) " ") "")
-      (name (:type v)) " " (emit db v) ";"])
+      (name (:type v)) " " (emit db v)
+      (if-let [c (:length v)] (str "[" c "]")) ";"])
     (catch Exception e (println (str "declaration error on: ") (pr-str x)))))
 
 
