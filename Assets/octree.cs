@@ -7,7 +7,7 @@ public class octree : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		pointTree = new PointOctree<GameObject>(15, transform.position, 1);
+		pointTree = new PointOctree<GameObject>(1000f, transform.position, 0.5f);
 	}
 	
 	// Update is called once per frame

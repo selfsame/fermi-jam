@@ -4,10 +4,11 @@
     arcadia.core
     arcadia.linear
     hard.core
+    hard.input
     hard.seed
     hard.mesh
     tween.core
-    hard.gob-pool
+    hard.gobpool
     lines
     universe.domain
     universe.temporal
@@ -15,8 +16,11 @@
     tween.pool))
 
 
+(destroy-tagged "clone")
+(clear-cloned!)
 
-(gob-pool 2000 Galaxy (local-scale! (-clone :debug-box) (v3 0.5)))
+
+(gobpool 2 Galaxy (local-scale! (-clone :star) (v3 4.0)))
 
 (-stats <>Galaxy)
 
@@ -27,7 +31,6 @@
   (-tree [o])
   (-sphere-coords [o v r])
   (-moved? [o v])
-  (unresolved [o v r])
   (add [o cs obj])
   (cull [o v r])
   (-update [o v r]))
@@ -43,54 +46,88 @@
                           generator
   ^:unsynchronized-mutable origin]
 IResolve
-(coord ^clojure.lang.PersistentVector [o v]
-  [(int (/ (.x v) unit))(int (/ (.y v) unit))(int (/ (.z v) unit))])
+(coord [o v]
+  (v3 (* (Mathf/Floor (.x v)) (/ 1 unit))
+      (* (Mathf/Floor (.y v)) (/ 1 unit))
+      (* (Mathf/Floor (.z v)) (/ 1 unit))))
 (-tree [o] (.pointTree (cmpt root "octree")))
-(-moved? [o v]
-  (let [co (coord o v)]
-    (if (= origin co) false
-      (set! origin co))))
+(-moved? [o v] true)
 (-sphere-coords [o v r]
-  (let [[ox oy oz] (coord o v)
-        ur (int (/ r unit))]
+  (let [cv (coord o v)
+        ur (int r)]
     (for [x (range (- ur) ur) 
           y (range (- ur) ur) 
-          z (range (- ur) ur)
-          :when 
-          (and (> ur  (.magnitude (v3 x y z)) (* ur 0.9))
-            (not (child-named root (str x y z))))]
-      [(+ ox x) (+ oy y) (+ oz z)])))
-(unresolved [o v r]
-  (-sphere-coords o v r))
-(add [o [x y z] gob]
-  (when gob 
-  (let [v (v3* (v3 x y z) unit)]
-    (name! gob (str x y z))
-  (position! gob v)
-  (parent! gob root)
-  (.Add (-tree o) gob v))))
+          z (range (- ur) ur)]
+      (v3 (+ 0.1 x (.x cv))(+ 0.1 y (.y cv))(+ 0.1 z (.z cv))))))
+(add [o [x y z] gob])
 (-update [o v r]
   (when (-moved? o v) 
-    (dorun 
-    (map 
-      #(add o % (generator %))
-       (unresolved o v r)))
+    (let [cv (v3+ v (v3 (?f (- r) r)(?f (- r) r)(?f (- r) r)))]
+    ;(.Remove (-tree o) (the xyz))
+    ;(.Add (-tree o) (the xyz) (>v3 (the xyz)))
+    (if-not 
+      (first (.GetNearby  (-tree o) (Ray. cv
+       (v3 0.01)) (double unit)))
+
+  
+  (.Add (-tree o) (parent! (rotate! (position! (clone! :star) cv) (v3 (?f 360)(?f 360)(?f 360))) root) cv)
     (dorun (map 
       (fn [gob]
-        (.Remove (-tree o) gob)
-        (!Galaxy gob))
-      (.GetWithout (-tree o) (Ray. v (v3)) (double r)))))))
 
+        (try (.Remove (-tree o) gob)
+             (catch Exception e (log (prn-str [(>v3 gob) gob v])))
+             (finally (destroy gob))))
+      (.GetWithout (-tree o) (Ray. v (v3 0.01)) (double (*  r 2.0)))))) ))))
+
+
+(clone! :xyz)
+(clone! :quadrant)
 
 (defn resolver [name size f]
   (Resolution. 
-    (let [o (name! (clone! :empty) (str name))]
-      (cmpt+ o octree) o) 
+    (let [o (name! (clone! :xyz) (str name))]
+      (cmpt+ o octree)
+      (position! o (v3)) o) 
     size f nil))
 
+;(benchmark 1000 (aget (.GetWithout  (-tree t) (Ray. (v3 0.0) (v3 0.01)) (double 3)) 0))
+
+(defn n->trinoise [n]
+  (let [ks [:trinoise1 :trinoise2 :trinoise5 :trinoise8]]
+    (get ks (int (* n (count ks))) (first ks))))
+
+  (def mpc-foam 
+  (harmonic 
+    (noise* (srand) { :out #(* (- (abs %) 0.5) -1)}) [0.228 0.0832 0.1202 1.305] min))
+
+
+(defn ^UnityEngine.GameObject gen-galaxy [p]
+  (let [n (mpc-foam p)]
+        (clone! :star)
+        #_(when (< n 0.35)
+          (clone! :star)
+          #_(let [cnt (srand-int (* (Mathf/Clamp 0 1 n) 4.0))
+                o (GameObject. "galaxy")]
+
+          (dorun (map 
+            (fn [idx] 
+              (let [gv (v3+ p (v3 (?f -3.0 3.0)(?f -3.0 3.0)(?f -3.0 3.0)))]
+                (parent! (rotate! (clone! :star gv) (v3 (?f 360)(?f 360)(?f 360))) 
+                  #_(rotate! 
+                    (local-scale! 
+                      (clone! (n->trinoise (* cnt 0.1)) gv) (v3 0.4)) 
+                    (v3 (?f 360)(?f 360)(?f 360)))
+                  o)))
+            (range cnt)))
+          o) )) )
 
 
 
+
+(def t (resolver "joe" 4.0 (fn [cr] (gen-galaxy cr) )))
+
+(hook+ (the xyz) :update (fn [o] (-update t (v3* (>v3 o) 1.0) 10.0)))
+(hook+ (.root t) :on-draw-gizmos (fn [o] (if true (.DrawAllBounds (-tree t)))))
 
 
 (def galaxy-count 1e11)
@@ -117,7 +154,12 @@ IResolve
 (defn rotater [o]
   (timeline* :loop
     #(do (lerp-look! (the cam) o 0.1)
-      (rotate! o (v3 0 0.3 0)))))
+      (if (key? "p") (set! (.* (the cam)>Camera.clearFlags) UnityEngine.CameraClearFlags/Depth))
+      (if (key? "o") (set! (.* (the cam)>Camera.clearFlags) UnityEngine.CameraClearFlags/Skybox))
+      (if (key? "l") (update-state! o :speed inc))
+      (if (key? "k") (update-state! o :speed dec))
+      (if (key? "s") (position! (the cam) (v3- (>v3 (the cam)) (v3 0 0 0.2))))
+      (rotate! o (v3 0 (* 0.05 (or (state o :speed) 10)) 0)))))
 
 (defn cube-v3s 
   ([r] (cube-v3s r nil))
@@ -131,56 +173,25 @@ IResolve
       v))))
 
 
-(defn n->trinoise [n]
-  (let [ks [:trinoise1 :trinoise2 :trinoise5 :trinoise8]]
-    (get ks (int (* n (count ks))) (first ks))))
 
-  (def mpc-foam 
-  (harmonic 
-    (noise* (srand) { :out #(* (- (abs %) 0.5) -1)}) [0.228 0.0832 0.1202 1.305] min))
-
-
-(defn ^UnityEngine.GameObject gen-galaxy [[x y z]]
-  (local-scale! (*Galaxy) (v3 3.9))
-  #_(let [p (v3 x y z)
-        n (mpc-foam p)]
-        (when (< n 0.35)
-          (local-scale! (create-primitive :sphere) (v3 4))
-          #_(let [cnt (srand-int (* (Mathf/Clamp 0 1 n) 4.0))
-                o (GameObject. "galaxy")]
-
-          (dorun (map 
-            (fn [idx] 
-              (let [gv (v3+ p (v3 (?f -3.0 3.0)(?f -3.0 3.0)(?f -3.0 3.0)))]
-                (parent! (rotate! (clone! :trinoise5 gv) (v3 (?f 360)(?f 360)(?f 360))) 
-                  #_(rotate! 
-                    (local-scale! 
-                      (clone! (n->trinoise (* cnt 0.1)) gv) (v3 0.4)) 
-                    (v3 (?f 360)(?f 360)(?f 360)))
-                  o)))
-            (range cnt)))
-          o) )) )
 
 
 
 (do 
   (seed! (srand))
-  (mapv destroy [(the xyz)(the universe)(the galaxies)])
-  (let [xyz (clone! :xyz)
-        camera (clone! :camera)
+  (let [camera (clone! :camera)
         root (name! (clone! :empty) "universe")
         grid (parent! (name! (clone! :empty) "grid") root)
-        galaxy-res (resolver "galaxies" 5.0 gen-galaxy)
+        ;galaxy-res (resolver "galaxies" 5.0 gen-galaxy)
         ]
-(def tree (-tree galaxy-res))
-(parent! camera xyz)
+        (state! camera {:speed 12})
+;(def tree (-tree galaxy-res))
+(parent! camera (the xyz))
 '(log (with-out-str (time (-update galaxy-res (v3 0.0 0.0 0.0) 20.0))))
 '(hook+ root :update (fn [o] (-update galaxy-res (>v3 (the xyz)) 20.0)))
-(hook+ root :on-draw-gizmos (fn [o] (.DrawAllBounds (-tree galaxy-res)))))
+'(hook+ root :on-draw-gizmos (fn [o] (.DrawAllBounds (-tree galaxy-res)))))
   )
 
-
-(.Add tree (clone! :star) (>v3 (the xyz)))
 
 
 (defn colors [o] (.colors (.mesh (cmpt o UnityEngine.MeshFilter))))
@@ -200,17 +211,12 @@ IResolve
 
 
 
-
-'[Resolution spec
-  :usage
-  given
-    [a position and radius
-     a feature grid size
-     ]
+(map #(timeline* :loop (tween {:local {:scale (v3 (?f 1 0.2))}} % (?f 0.3 0.2)))
+  (every star))
 
 
+(map #(timeline* :loop (tween {:material {:color (color (?f)(?f)(?f))}} % (?f 0.01 0.1)))
+  (every line-sphere))
 
-]
-
-
-
+(use 'hard.edit)
+(hook+ (active) :update (fn [o] (rotate! o (v3 0 0 (* -0.01 (or (state o :speed) 10))))))
